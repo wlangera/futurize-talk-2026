@@ -1,7 +1,11 @@
 <div class="sidebar"></div>
 <div class="sidebar-url">$translation.url$</div>
 
-<section id="$idprefix$title-slide"$for(title-slide-attributes/pairs)$ $it.key$="$it.value$"$endfor$ $if(flandersqmd.cover)$data-background-image="$flandersqmd.cover$"$endif$>
+<section
+  id="$idprefix$title-slide"
+  data-background-color="#000055"
+  $for(title-slide-attributes/pairs)$ $it.key$="$it.value$"$endfor$
+  $if(flandersqmd.cover)$data-background-image="$flandersqmd.cover$"$endif$>
 
   <div class="title-logo" style="$translation.title_logo_style$">
     <img src="$translation.flanders_title_logo$"
@@ -13,8 +17,6 @@
                class="title-logo-img">
     $endif$
   </div>
-
-  $if(flandersqmd.cover)$$else$<h1>!!! missing: flandersqmd.cover !!!</h1>$endif$
 
   <h1 class="title">$flandersqmd.title$</h1>
 
