@@ -1,0 +1,16 @@
+---
+title: "Parallel processing in R using futureverse"
+subtitle: "A summary of a useR! conference workshop"
+author: "Ward Langeraert"
+date: 2026-10-01
+format:
+  flandersqmd-revealjs: default
+---
+
+## About this presentation
+
+- Short summary of the workshop: **"Introduction to Parallel Processing in R using Futureverse - Easier than Ever Before"**
+  - Henrik Bengtsson
+  - useR! conference on 2026-07-06.
+- These slides are condensed notes from the workshop and do not replace the original workshop materials.
+  - <https://www.futureverse.org/tutorials.html>

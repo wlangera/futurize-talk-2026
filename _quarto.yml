@@ -1,0 +1,37 @@
+project:
+  type: default
+  preview:
+    port: 4201
+    browser: true
+  render:
+    - "*.md"
+    - "*.qmd"
+    - "!LICENSE.md" #ignore LICENSE.md
+    - "!README.md" #ignore README.md
+  output-dir: output
+
+execute:
+  echo: false
+  freeze: auto
+
+lang: en-GB
+
+format:
+  flandersqmd-revealjs: default
+
+flandersqmd:
+  entity: INBO
+  level: 2
+  title: Parallel processing in R using futureverse
+  subtitle: A summary of a useR! conference workshop
+  author:
+    - name:
+        given: Ward
+        family: Langeraert
+      email: ward.langeraert@inbo.be
+      corresponding: true
+      orcid: 0000-0002-5900-8109
+      affiliation:
+        - Research Institute for Nature and Forest
+  date: 2026-10-01
+  cover: https://henrikbengtsson.github.io/futureverse-tutorial-user2026/images/futurize-logo.webp
