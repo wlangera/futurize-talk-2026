@@ -3,8 +3,6 @@ title: "Parallel processing in R using futureverse"
 subtitle: "A summary of a useR! conference workshop"
 author: "Ward Langeraert"
 date: 2026-10-01
-format:
-  flandersqmd-revealjs: default
 ---
 
 ## About this presentation
