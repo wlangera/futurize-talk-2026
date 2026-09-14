@@ -149,3 +149,25 @@ Approach depends on **computational problem** and **available infrastructure**.
    -  Suitable for large-scale simulations and computationally intensive analyses
 
 > see also the tutorial ["Geavanceerde analysenoden"](https://ict-intranet.inbo.be/tutorials/geavanceerde_analysenoden/index.html) on ICT intranet
+
+# Parallel processing in R using the futureverse
+
+## Introducing the futureverse
+
+- Use your existing R code
+- Scale from your **laptop to HPC**
+- No need to manually manage:
+  - workers
+  - global variables
+  - parallel random-number generation
+
+The same approach works across **Windows, macOS and Linux**.
+
+<div style="position: absolute; right: 60px; bottom: 200px;">
+  <a href="https://www.futureverse.org/" target="_blank">
+    <img
+      src="https://www.futureverse.org/images/logo.png"
+      alt="Futureverse logo"
+      style="width: 180px; height: auto;">
+  </a>
+</div>
