@@ -5,10 +5,36 @@ author: "Ward Langeraert"
 date: 2026-10-01
 ---
 
-## About this presentation
+# About this presentation
+
+## Disclaimer
 
 - Short summary of the workshop: **"Introduction to Parallel Processing in R using Futureverse - Easier than Ever Before"**
   - Henrik Bengtsson
   - useR! conference on 2026-07-06.
 - These slides are condensed notes from the workshop and do not replace the original workshop materials.
   - <https://www.futureverse.org/tutorials.html>
+
+## Preparation
+
+**Step 1:** Install packages
+
+```r
+install.packages("futureverse")
+```
+
+**Step 2:** Make sure everything is up to date
+
+```r
+futureverse::futureverse_update()
+#> All futureverse packages up-to-date
+```
+
+**Step 3:** Verify that it works
+
+```r
+library(futurize)
+
+plan(multisession, workers = 2)
+plan(sequential)
+```

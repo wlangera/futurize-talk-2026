@@ -20,6 +20,7 @@ format:
   flandersqmd-revealjs:
     output-file: slides.html
     embed-resources: true
+    toc: true
 
 flandersqmd:
   entity: INBO
