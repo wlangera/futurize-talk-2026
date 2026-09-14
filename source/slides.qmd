@@ -38,3 +38,11 @@ library(futurize)
 plan(multisession, workers = 2)
 plan(sequential)
 ```
+
+# Parallel processing
+
+## What is parallel processing?
+
+## Why do we parallelize code?
+
+## How do we parallelize code?
