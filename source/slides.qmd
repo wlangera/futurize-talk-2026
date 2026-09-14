@@ -163,6 +163,8 @@ Approach depends on **computational problem** and **available infrastructure**.
 
 The same approach works across **Windows, macOS and Linux**.
 
+<!-- spell-check: ignore:start -->
+
 <div style="position: absolute; right: 60px; bottom: 200px;">
   <a href="https://www.futureverse.org/" target="_blank">
     <img
@@ -171,3 +173,45 @@ The same approach works across **Windows, macOS and Linux**.
       style="width: 180px; height: auto;">
   </a>
 </div>
+
+<!-- spell-check: ignore:end -->
+
+## Working with futures
+
+First, let's define a computation of interest:
+
+```{r}
+slow_sum <- function(x) {
+  sum <- 0
+  for (value in x) {
+    Sys.sleep(1)    # one-second slowdown per value
+    sum <- sum + value
+  }
+  sum
+}
+```
+
+---
+
+Verify run time
+
+```{r}
+tic <- futureverse:::tic
+toc <- futureverse:::toc
+```
+
+\
+
+Let's take the sum of 1, 2, 3 (slowly!)
+
+```r
+tic()
+toc(slow_sum(1:3)) # or: slow_sum(1:3) |> toc()
+```
+
+```{r}
+#| echo: false
+#| message: true
+tic()
+toc(slow_sum(1:3))
+```
