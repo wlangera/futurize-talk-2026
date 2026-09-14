@@ -42,3 +42,21 @@ library(futurize)
 plan(multisession, workers = 2)
 plan(sequential)
 ```
+
+## Some functions used during the talk
+
+```r
+slow_sum <- function(x) {
+  sum <- 0
+  for (value in x) {
+    Sys.sleep(1)    # one-second slowdown per value
+    sum <- sum + value
+  }
+  sum
+}
+```
+
+```r
+tic <- futureverse:::tic
+toc <- futureverse:::toc
+```
