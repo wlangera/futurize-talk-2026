@@ -39,10 +39,113 @@ plan(multisession, workers = 2)
 plan(sequential)
 ```
 
-# Parallel processing
+# About parallel processing
 
 ## What is parallel processing?
 
+- Execution of **multiple computations** at the same time
+- Divided into **smaller, independent tasks**
+- Executed simultaneously by **multiple workers**
+  - Multiple CPU cores
+  - Across multiple machines (distributed computing)
+
+---
+
+**Sequential**
+
+Task 1 ──────► Task 2 ──────► Task 3 ──────► Task 4
+
+                         time ►
+
+**Parallel**
+
+Task 1 ───────────►
+
+Task 2 ───────────►
+
+Task 3 ───────────►
+
+Task 4 ───────────►
+
+                         time ►
+
 ## Why do we parallelize code?
 
+Parallel  processing can be used to:
+
+- **Speed** up processing
+  - Finish sooner
+- **Lower memory** footprint per machine
+  - Handle computations that don't fit on one machine
+- **Computing where the data lives**
+  - Avoid moving large amounts of data
+
+---
+
+> Parallel processing is **not automatically faster**!
+
+- Useful when a problem consists of many **independent tasks**
+- Creating workers, distributing tasks and collecting results also takes time and resources
+- The computational gain needs to outweigh this **overhead**
+
 ## How do we parallelize code?
+
+Different types of computing infrastructure:
+
+1. **Personal laptop**
+   - Multiple CPU cores
+   - Typically a single user
+
+2. **Shared powerful computer**
+   - More CPU cores and memory
+   - Multiple users
+
+---
+
+3. **Across many computers**
+   - Computers in the office or in the cloud
+   - Tasks distributed across machines
+
+4. **High-performance computing (HPC) cluster**
+   - Many powerful machines
+   - Multiple users
+   - Job scheduler
+
+---
+
+Approach depends on **computational problem** and **available infrastructure**.
+
+1. **Personal laptop**
+   - For many analyses sufficient
+   - Examples:
+     - simulations
+     - bootstrapping
+     - resampling and cross-validation
+
+---
+
+2. **Shared powerful computer**
+   -  INBO has powerful desktop PCs in Brussels and Geraardsbergen
+   -  More CPU and memory than a standard laptop
+   -  Equipped with a GPU
+   -  Suitable for computationally intensive analyses
+
+> see also the tutorial ["Geavanceerde analysenoden"](https://ict-intranet.inbo.be/tutorials/geavanceerde_analysenoden/index.html) on ICT intranet
+
+---
+
+3. **Across many computers**
+   -  INBO has cloud infrastructure available through AWS
+   -  Work can be distributed across multiple machines
+   -  Useful for large numbers of independent or computationally intensive tasks
+
+> see also the tutorial ["Geavanceerde analysenoden"](https://ict-intranet.inbo.be/tutorials/geavanceerde_analysenoden/index.html) on ICT intranet
+
+---
+
+4. **High-performance computing (HPC) cluster**
+   -  INBO can make use of HPC infrastructure within the Flemish universities
+   -  Many powerful machines and CPU cores
+   -  Suitable for large-scale simulations and computationally intensive analyses
+
+> see also the tutorial ["Geavanceerde analysenoden"](https://ict-intranet.inbo.be/tutorials/geavanceerde_analysenoden/index.html) on ICT intranet
