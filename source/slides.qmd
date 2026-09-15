@@ -1,5 +1,5 @@
 ---
-title: "Parallel processing in R using futureverse"
+title: "Parallel processing in R using Futureverse"
 subtitle: "A summary of a useR! conference workshop"
 author: "Ward Langeraert"
 date: 2026-10-01
@@ -176,9 +176,9 @@ Approach depends on **computational problem** and **available infrastructure**.
 
 > see also the tutorial ["Geavanceerde analysenoden"](https://ict-intranet.inbo.be/tutorials/geavanceerde_analysenoden/index.html) on ICT intranet
 
-# Parallel processing in R using the futureverse
+# Parallel processing in R using the Futureverse
 
-## Introducing the futureverse
+## Introducing the Futureverse
 
 - Use your existing R code
 - Scale from your **laptop to HPC**
@@ -439,3 +439,180 @@ for (i in seq_along(xs)) {
 :::
 
 ::::
+
+---
+
+```{r}
+parallel_map <- function(.x, .f) {
+  # Create futures
+  fs <- vector(mode = "list", length = length(.x))
+  for (i in seq_along(.x)) {
+    fs[[i]] <- future::future(.f(.x[[i]])) 
+  }
+
+  # Collect values
+  ys <- vector(mode = "list", length = length(.x))
+  for (i in seq_along(.x)) {
+    ys[[i]] <- future::value(fs[[i]]) 
+  }
+
+  return(ys)
+}
+```
+
+---
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Sequential**
+
+```{r}
+set.seed(123)
+xs <- runif(30)
+```
+
+\
+
+```r
+tic()
+ys_seq <- xs |>
+  purrr::map(slow_sqrt)
+toc()
+```
+
+```{r}
+#| echo: false
+#| message: true
+tic()
+ys_seq <- xs |>
+  purrr::map(slow_sqrt)
+toc()
+```
+:::
+
+::: {.column width="50%"}
+**Parallel**
+
+```r
+library(future)
+plan(multisession,
+     workers = 4)
+
+tic()
+ys_par <- xs |> 
+  parallel_map(slow_sqrt)
+toc()
+```
+
+```{r}
+#| echo: false
+#| message: true
+library(future)
+plan(multisession,
+     workers = 4)
+
+tic()
+ys_par <- xs |> 
+  parallel_map(slow_sqrt)
+toc()
+```
+:::
+
+::::
+
+---
+
+## Let’s simplify our lives with futurize
+
+- `futurize()` is new since January 2026
+- Rewrites expression into equivalent Futureverse call, then evaluates
+
+```r
+ys <- lapply(xs, slow_sqrt)                # {base}
+ys <- lapply(xs, slow_sqrt) |> futurize()  # {futurize}
+```
+
+\
+
+```r
+ys <- map(xs, slow_sqrt)                   # {base}
+ys <- map(xs, slow_sqrt) |> futurize()     # {futurize}
+```
+
+<!-- spell-check: ignore:start -->
+
+<div style="position: absolute; right: 50px; bottom: 500px;">
+  <a href="https://www.futureverse.org/" target="_blank">
+    <img
+      src="https://henrikbengtsson.github.io/futureverse-tutorial-user2026/images/futurize-logo.webp"
+      alt="Futureverse logo"
+      style="width: 180px; height: auto;">
+  </a>
+</div>
+
+<!-- spell-check: ignore:end -->
+
+---
+
+Popular statistics packages support `futurize()`
+
+\
+
+```r
+# Bootstrap ({boot})
+boot::boot(data, statistic, R = 1000)         |> futurize()
+
+# Cross-validation ({glmnet})
+glmnet::cv.glmnet(x, y)                       |> futurize()
+
+# Model tuning ({caret})
+caret::train(y ~ ., data = d, method = "rf")  |> futurize()
+
+# Additive models ({mgcv})
+mgcv::bam(y ~ s(x1) + s(x2), data = d)        |> futurize()
+
+# Mixed-model bootstrap ({lme4})
+lme4::bootMer(fit, statistic, nsim = 1000)    |> futurize()
+```
+
+---
+
+The code stays the same --> only the `plan()` changes
+
+\
+
+**On your machine**
+
+```r
+plan(sequential)                 # sequential (default)
+plan(multisession, workers = 4)  # parallel
+```
+
+\
+
+Or use alternative local backends such as **future.mirai** and **future.callr**
+
+```r
+plan(future.mirai::mirai_multisession)
+```
+
+---
+
+**Other machines**
+
+Distributed across local or remote computers
+
+```r
+plan(cluster, workers = c("n1", "m2.uni.edu", "vm.cloud.org"))
+```
+
+\
+
+**HPC clusters**
+
+Run futures through an HPC job scheduler
+
+```r
+plan(future.batchtools::batchtools_slurm)
+```
