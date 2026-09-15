@@ -3,6 +3,8 @@ title: "Parallel processing in R using futureverse"
 subtitle: "A summary of a useR! conference workshop"
 author: "Ward Langeraert"
 date: 2026-10-01
+editor_options: 
+  chunk_output_type: console
 ---
 
 # About this presentation
@@ -249,23 +251,154 @@ toc(slow_sum(1:3))
 
 :::: {.columns}
 
-::: {.column width="43%"}
+::: {.column width="35%"}
 An **R assignment**:
 
 ```r
 v <- expr
 ```
+:::
+
+::: {.column width="10%"}
 
 :::
 
-::: {.column width="57%"}
+::: {.column width="45%"}
 A **future-value assignment**:
 
 ```r
 f <- future(expr)
 v <- value(f)
 ```
+:::
 
+::::
+
+---
+
+Your turn: `future()` and `value()`
+
+\
+
+:::: {.columns}
+
+::: {.column width="32%"}
+- Verify result
+- Verify run time
+:::
+
+::: {.column width="68%"}
+
+```r
+library(future)
+plan(multisession)
+
+x <- 1:10
+
+fa <- future(slow_sum(x[1:5]))
+fb <- future(slow_sum(x[6:10]))
+
+y <- value(fa) + value(fb)
+```
+:::
+
+::::
+
+---
+
+:::: {.columns}
+
+::: {.column width="32%"}
+**Sequential**
+
+```{r}
+x <- 1:10
+```
+
+\
+
+```r
+tic()
+slow_sum(x)
+toc()
+```
+
+```{r}
+#| echo: false
+#| message: true
+tic()
+slow_sum(x)
+toc()
+```
+:::
+
+::: {.column width="3%"}
+
+:::
+
+::: {.column width="65%"}
+**Parallel**
+
+```r
+library(future)
+plan(multisession)
+
+tic()
+fa <- future(slow_sum(x[1:5]))
+fb <- future(slow_sum(x[6:10]))
+value(fa) + value(fb)
+toc()
+```
+
+```{r}
+#| echo: false
+#| message: true
+library(future)
+plan(multisession)
+
+tic()
+fa <- future(slow_sum(x[1:5]))
+fb <- future(slow_sum(x[6:10]))
+value(fa) + value(fb)
+toc()
+```
+:::
+
+::::
+
+---
+
+## Apply the same function over and over
+
+Slow square root
+
+```{r}
+slow_sqrt <- function(x) {
+  Sys.sleep(0.5)  # half-second delay per item
+  sqrt(x)
+}
+```
+
+:::: {.columns}
+
+::: {.column width="47%"}
+Base R:
+
+```{r}
+xs <- as.list(1:5)
+ys <- xs |> 
+  lapply(slow_sqrt)
+```
+:::
+
+::: {.column width="53%"}
+Tidyverse:
+
+```{r}
+library(purrr)
+xs <- as.list(1:5)
+ys <- map(xs, slow_sqrt)
+```
 :::
 
 ::::

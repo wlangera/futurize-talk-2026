@@ -55,6 +55,12 @@ slow_sum <- function(x) {
   }
   sum
 }
+
+# Take the square root of numeric value
+slow_sqrt <- function(x) {
+  Sys.sleep(0.5)  # half-second delay per item
+  sqrt(x)
+}
 ```
 
 ```r
