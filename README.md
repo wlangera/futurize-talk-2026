@@ -46,6 +46,7 @@ plan(sequential)
 ## Some functions used during the talk
 
 ```r
+# Take the slow sum of numeric values
 slow_sum <- function(x) {
   sum <- 0
   for (value in x) {
@@ -57,6 +58,7 @@ slow_sum <- function(x) {
 ```
 
 ```r
+# Functions to verify run time
 tic <- futureverse:::tic
 toc <- futureverse:::toc
 ```
