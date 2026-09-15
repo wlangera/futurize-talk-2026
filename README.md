@@ -25,6 +25,8 @@ The original futureverse tutorials and workshop materials are available at:
 
 ```r
 install.packages("futureverse")
+install.packages("progress")
+install.packages("beepr")
 ```
 
 ### Step 2: Make sure everything is up to date
@@ -46,6 +48,12 @@ plan(sequential)
 ## Some functions used during the talk
 
 ```r
+# Functions to verify run time
+tic <- futureverse:::tic
+toc <- futureverse:::toc
+```
+
+```r
 # Take the slow sum of numeric values
 slow_sum <- function(x) {
   sum <- 0
@@ -56,15 +64,9 @@ slow_sum <- function(x) {
   sum
 }
 
-# Take the square root of numeric value
+# Take the slow square root of numeric value
 slow_sqrt <- function(x) {
   Sys.sleep(0.5)  # half-second delay per item
   sqrt(x)
 }
-```
-
-```r
-# Functions to verify run time
-tic <- futureverse:::tic
-toc <- futureverse:::toc
 ```

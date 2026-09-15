@@ -19,26 +19,21 @@ editor_options:
 
 ## Preparation
 
-**Step 1:** Install packages
+Install packages
 
 ```r
 install.packages("futureverse")
+install.packages("progress")
+install.packages("beepr")
 ```
 
-**Step 2:** Make sure everything is up to date
+\
+
+Make sure everything is up to date
 
 ```r
 futureverse::futureverse_update()
 #> All futureverse packages up-to-date
-```
-
-**Step 3:** Verify that it works
-
-```r
-library(futurize)
-
-plan(multisession, workers = 2)
-plan(sequential)
 ```
 
 # About parallel processing
@@ -86,9 +81,12 @@ Parallel  processing can be used to:
 
 > Parallel processing is **not automatically faster**!
 
-- Useful when a problem consists of many **independent tasks**
-- Creating workers, distributing tasks and collecting results also takes time and resources
-- The computational gain needs to outweigh this **overhead**
+Parallelization can be slower when:
+
+- **Tasks are too small**: per-task overhead (launch, serialize, transfer) exceeds the actual work
+- **Data is large**: copying inputs and outputs to and from workers dominates
+- **The bottleneck is not the CPU**: disk-, network-, or memory-bandwidth-bound work does not speed up
+- **The code is already vectorized**: e.g. `sqrt(xs)` beats any parallel map
 
 ## How do we parallelize code?
 
@@ -386,13 +384,13 @@ Base R:
 
 ```{r}
 xs <- as.list(1:5)
-ys <- xs |> 
+ys <- xs |>
   lapply(slow_sqrt)
 ```
 :::
 
 ::: {.column width="53%"}
-Tidyverse:
+tidyverse:
 
 ```{r}
 library(purrr)
@@ -447,13 +445,13 @@ parallel_map <- function(.x, .f) {
   # Create futures
   fs <- vector(mode = "list", length = length(.x))
   for (i in seq_along(.x)) {
-    fs[[i]] <- future::future(.f(.x[[i]])) 
+    fs[[i]] <- future::future(.f(.x[[i]]))
   }
 
   # Collect values
   ys <- vector(mode = "list", length = length(.x))
   for (i in seq_along(.x)) {
-    ys[[i]] <- future::value(fs[[i]]) 
+    ys[[i]] <- future::value(fs[[i]])
   }
 
   return(ys)
@@ -513,7 +511,7 @@ plan(multisession,
      workers = 4)
 
 tic()
-ys_par <- xs |> 
+ys_par <- xs |>
   parallel_map(slow_sqrt)
 toc()
 ```
@@ -591,7 +589,7 @@ plan(multisession, workers = 4)  # parallel
 
 \
 
-Or use alternative local backends such as **future.mirai** and **future.callr**
+Or use alternative local back ends such as **future.mirai** and **future.callr**
 
 ```r
 plan(future.mirai::mirai_multisession)
@@ -616,3 +614,34 @@ Run futures through an HPC job scheduler
 ```r
 plan(future.batchtools::batchtools_slurm)
 ```
+
+# Progress reporting
+## Measure running times with `progressify()`
+
+
+
+<!-- spell-check: ignore:start -->
+
+<div style="position: absolute; right: 50px; bottom: 50px;">
+  <a href="https://www.futureverse.org/" target="_blank">
+    <img
+      src="https://henrikbengtsson.github.io/futureverse-tutorial-user2026/images/progressify-logo.webp"
+      alt="Futureverse logo"
+      style="width: 180px; height: auto;">
+  </a>
+</div>
+
+<!-- spell-check: ignore:end -->
+
+## Parallelize and report
+
+
+# More on parallelization
+## Things we haven’t talked about
+
+- Message, warning and error handling
+- Random number generation in parallel processing
+- Not everything can travel to a worker (e.g. database connections)
+- Nested parallelization, efficient memory handling, resource management ...
+
+> More info in the [original tutorial](https://henrikbengtsson.github.io/futureverse-tutorial-user2026/#/) or on [www.futureverse.org](https://www.futureverse.org/)
