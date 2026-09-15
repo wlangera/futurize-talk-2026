@@ -409,7 +409,7 @@ ys <- map(xs, slow_sqrt)
 
 :::: {.columns}
 
-::: {.column width="80%"}
+::: {.column width="67%"}
 Combine the idea of:
 
 ```r
@@ -427,8 +427,15 @@ for (i in seq_along(xs)) {
 ```
 :::
 
-::: {.column width="20%"}
-> Hint: You need two for-loops - one for `future()` and one for `value()`
+::: {.column width="3%"}
+
+:::
+
+::: {.column width="30%"}
+\
+
+> Hint: You need two for-loops, one for `future()` and one for `value()`
+
 :::
 
 ::::
