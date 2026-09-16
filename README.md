@@ -25,7 +25,6 @@ The original futureverse tutorials and workshop materials are available at:
 
 ```r
 install.packages("futureverse")
-install.packages("progress")
 install.packages("beepr")
 ```
 

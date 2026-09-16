@@ -23,7 +23,6 @@ Install packages
 
 ```r
 install.packages("futureverse")
-install.packages("progress")
 install.packages("beepr")
 ```
 
@@ -618,11 +617,22 @@ plan(future.batchtools::batchtools_slurm)
 # Progress reporting
 ## Measure running times with `progressify()`
 
+- Similar method for progress reporting
+  - The code stays the same --> only the `handlers()` change
 
+```r
+library(progressify)
+handlers(global = TRUE)  # Must be enabled manually!
+
+ys <- lapply(1:10, slow_sqrt) |>
+  progressify()
+```
+
+`|=============================        | 80%`
 
 <!-- spell-check: ignore:start -->
 
-<div style="position: absolute; right: 50px; bottom: 50px;">
+<div style="position: absolute; right: 50px; bottom: 30px;">
   <a href="https://www.futureverse.org/" target="_blank">
     <img
       src="https://henrikbengtsson.github.io/futureverse-tutorial-user2026/images/progressify-logo.webp"
@@ -633,8 +643,38 @@ plan(future.batchtools::batchtools_slurm)
 
 <!-- spell-check: ignore:end -->
 
+---
+
+🔊
+
+\
+
+```r
+library(progressify)
+handlers("cli", "beepr", global = TRUE)
+
+ys <- lapply(1:10, slow_sqrt) |>
+  progressify()
+```
+
+`■■■■■■■■■■■■■■■■■■■■■■■■■         80% | ETA:  1s`
+
+with ♫♪♬♫ … ♬♫
+
 ## Parallelize and report
 
+- Combine `progressify()` and `futurize()`
+
+```r
+library(futurize)
+library(progressify)
+plan(multisession, workers = 4)
+handlers("cli", global = TRUE)
+
+ys <- lapply(1:10, slow_sqrt) |>
+  progressify() |>
+  futurize()
+```
 
 # More on parallelization
 ## Things we haven’t talked about
