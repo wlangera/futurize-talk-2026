@@ -8,6 +8,8 @@
 
 Presentation as part of the monthly talks by BMK for the Research Institute for Nature and Forest (INBO).
 
+> 01-10-2026 by Ward Langeraert
+
 The presentation is a summary of the workshop:
 
 **"Introduction to Parallel Processing in R using Futureverse - Easier than Ever Before"**
@@ -19,7 +21,19 @@ The original futureverse tutorials and workshop materials are available at:
 
 <https://www.futureverse.org/tutorials.html>
 
-## Preparation
+## Getting the slides
+
+- You can download the slides from `source/slides.html` and open them in your browser
+- You can render the slides yourself
+  - Clone this repo
+  - Open `futurize-talk-2026.Rproj` in RStudio
+  - Open `source/slides.qmd`
+  - In the terminal, run `quarto render` or click `Render Project` in the Build pane of RStudio
+
+## Preparation for the talk
+
+During the presentation you can run the examples yourself.
+Please make the following preparations.
 
 ### Step 1: Install packages
 
@@ -45,6 +59,8 @@ plan(sequential)
 ```
 
 ## Some functions used during the talk
+
+You can copy these functions in R to run the examples from the presentation.
 
 ```r
 # Functions to verify run time
