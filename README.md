@@ -23,11 +23,11 @@ The original futureverse tutorials and workshop materials are available at:
 
 ## Getting the slides
 
-- You can download the slides from `source/slides.html` and open them in your browser
+- You can download the slides from [`source/slides.html`](https://github.com/wlangera/futurize-talk-2026/blob/main/source/slides.html) and open them in your browser
 - You can render the slides yourself
   - Clone this repo
   - Open `futurize-talk-2026.Rproj` in RStudio
-  - Open `source/slides.qmd`
+  - Open `source/slides.qmd` ([link](https://github.com/wlangera/futurize-talk-2026/blob/main/source/slides.qmd))
   - In the terminal, run `quarto render` or click `Render Project` in the Build pane of RStudio
 
 ## Preparation for the talk
