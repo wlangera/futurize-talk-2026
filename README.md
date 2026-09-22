@@ -60,7 +60,7 @@ plan(sequential)
 
 ## Some functions used during the talk
 
-You can copy these functions in R to run the examples from the presentation.
+You can copy these functions in your R session to run the examples during the presentation.
 
 ```r
 # Functions to verify run time
