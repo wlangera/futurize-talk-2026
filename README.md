@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![Project Status](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Project Status: Inactive](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-brightgreen)](https://raw.githubusercontent.com/inbo/citeme/refs/heads/main/inst/licenses/cc_by_4_0.md)
 ![GitHub repo size](https://img.shields.io/github/repo-size/wlangera/futurize-talk-2026)
 <!-- badges: end -->
